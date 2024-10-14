@@ -17,9 +17,12 @@ namespace ProgPoe
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                        options.UseSqlServer(builder.Configuration.GetConnectionString("Prog6212DEV")));
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+            //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+            //Added service for Authorization for Role based Access
+            builder.Services.AddDefaultIdentity<IdentityUser>().AddDefaultTokenProviders()
+                           .AddRoles<IdentityRole>()
+                           .AddEntityFrameworkStores<ApplicationDbContext>();
 
-          
 
             var app = builder.Build();
 
@@ -37,6 +40,7 @@ namespace ProgPoe
             app.UseRouting();
 
             app.UseAuthorization();
+            app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",
