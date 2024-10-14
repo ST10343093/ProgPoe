@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 using ProgPoe.Data;
 
 namespace ProgPoe
@@ -14,6 +16,10 @@ namespace ProgPoe
             //Adding DB Context builder services with options
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                        options.UseSqlServer(builder.Configuration.GetConnectionString("Prog6212DEV")));
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
+          
 
             var app = builder.Build();
 
