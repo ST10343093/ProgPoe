@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using ProgPoe.Data;
+
 namespace ProgPoe
 {
     public class Program
@@ -8,6 +11,9 @@ namespace ProgPoe
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            //Adding DB Context builder services with options
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                       options.UseSqlServer(builder.Configuration.GetConnectionString("Prog6212DEV")));
 
             var app = builder.Build();
 
