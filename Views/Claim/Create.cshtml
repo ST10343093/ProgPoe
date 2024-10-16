@@ -1,0 +1,41 @@
+﻿@model ProgPoe.Models.ClaimViewModel
+ 
+@{
+    ViewData["Title"] = "Submit Claim";
+}
+ 
+<div class="container-claims">
+<h2>Submit Your Claim</h2>
+ 
+    <form asp-action="Create" enctype="multipart/form-data" method="post">
+<div class="form-group">
+<label asp-for="HoursWorked"></label>
+<input asp-for="HoursWorked" class="form-control" required />
+<span asp-validation-for="HoursWorked" class="text-danger"></span>
+</div>
+ 
+        <div class="form-group">
+<label asp-for="HourlyRate"></label>
+<input asp-for="HourlyRate" class="form-control" required />
+<span asp-validation-for="HourlyRate" class="text-danger"></span>
+</div>
+ 
+        <div class="form-group">
+<label asp-for="Notes"></label>
+<textarea asp-for="Notes" class="form-control" rows="4" placeholder="Add any additional notes..."></textarea>
+<span asp-validation-for="Notes" class="text-danger"></span>
+</div>
+ 
+        <div class="form-group">
+<label for="SupportingDocuments" style="@(ViewBag.InvalidFile != null && (bool)ViewBag.InvalidFile ? "color: red;" : "color: black;")">Supporting Documents (PDF only, max 15MB)</label>
+<input type="file" name="SupportingDocuments" class="form-control" multiple required />
+<span asp-validation-for="SupportingDocuments" class="text-danger"></span>
+</div>
+ 
+        <button type="submit" class="btn-claims btn-primary"><i class="fa-solid fa-upload"></i> Submit Claim</button>
+</form>
+</div>
+ 
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

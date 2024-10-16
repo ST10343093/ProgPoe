@@ -1,0 +1,100 @@
+﻿@model IEnumerable<ProgPoe.Models.Claim>
+@{
+    ViewBag.Title = "Track Claim Status";
+ 
+    // Helper methods to determine CSS classes based on status
+    string GetStatusClass(string status)
+    {
+        return status switch
+        {
+            "Approved by Manager" => "approved",
+            "Rejected by Coordinator" => "rejected",
+            "Rejected by Manager" => "rejected",
+            "Pending" => "pending",
+            _ => "unknown" // Default class for any unexpected status
+        };
+    }
+ 
+    string GetRowClass(string status)
+    {
+        return status switch
+        {
+            "Approved by Manager" => "text-success",
+            "Rejected by Coordinator" => "text-danger",
+            "Rejected by Manager" => "text-danger",
+            "Pending" => "text-warning",
+            _ => "text-muted" // Default text class
+        };
+    }
+}
+ 
+<div class="container-claims">
+<h2 style="color: #03041c;">Track Your Claim Status</h2>
+<!-- Status Summary Section -->
+<div class="status-summary">
+<div class="status-item approved">
+            Approved Claims: <span id="approved-count">@Model.Count(c => c.Status == "Approved by Manager")</span>
+</div>
+<div class="status-item rejected">
+            Rejected Claims: <span id="rejected-count">@Model.Count(c => c.Status == "Rejected by Coordinator" || c.Status == "Rejected by Manager")</span>
+</div>
+<div class="status-item pending">
+            Pending Claims: <span id="pending-count">@Model.Count(c => c.Status == "Pending")</span>
+</div>
+</div>
+ 
+   
+<div class="filter-section">
+<label for="status-filter">Filter by Status:</label>
+<select id="status-filter" class="status-filter" onchange="filterClaims()">
+<option value="All">All</option>
+<option value="Approved">Approved</option>
+<option value="Rejected">Rejected</option>
+<option value="Pending">Pending</option>
+</select>
+</div>
+ 
+    
+<table class="table">
+<thead>
+<tr>
+<th>Claim ID</th>
+<th>Submission Date</th>
+<th>Status</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody id="claims-table-body">
+            @foreach (var claim in Model)
+            {
+<tr class="@GetStatusClass(claim.Status)" data-status="@claim.Status">
+<td>@claim.ClaimId</td>
+<td>@claim.DateSubmitted.ToString("yyyy/MM/dd")</td>
+<td class="@GetRowClass(claim.Status)">@claim.Status</td>
+<td>@claim.Notes</td>
+</tr>
+            }
+</tbody>
+</table>
+ 
+    <a href="/Lecturer/Dashboard" class="btn-submit" style="text-decoration:none;"><i class="fa-solid fa-house"></i> Back to Dashboard</a>
+</div>
+ 
+<script>
+    function filterClaims() {
+        const filterValue = document.getElementById("status-filter").value.toLowerCase();
+        const claimsTable = document.getElementById("claims-table-body");
+        const rows = claimsTable.getElementsByTagName("tr");
+ 
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const status = row.getAttribute("data-status").toLowerCase();
+ 
+            if (filterValue === "all" || status === filterValue) {
+                row.style.display = ""; // Show the row
+            } else {
+                row.style.display = "none"; // Hide the row
+            }
+        }
+    }
+</script>
