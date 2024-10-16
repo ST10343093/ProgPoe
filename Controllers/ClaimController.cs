@@ -36,18 +36,18 @@ namespace ProgPoe.Controllers
 
             if (viewModel.SupportingDocuments == null || viewModel.SupportingDocuments.Count == 0)
             {
-                ModelState.AddModelError("", "At least one supporting document must be attached.");
+                ModelState.AddModelError("", "Please upload minimum one document.");
                 return View(viewModel);
             }
 
             bool invalidFileDetected = false;
             foreach (var file in viewModel.SupportingDocuments)
             {
-                if (file.ContentType != "application/pdf" || file.Length > 15 * 1024 * 1024)
+                if (file.ContentType != "application/pdf" || file.Length > 20 * 1024 * 1024)
                 {
                     ViewBag.FileError = true;
                     invalidFileDetected = true;
-                    ModelState.AddModelError("", "Only PDF files under 15 MB are allowed.");
+                    ModelState.AddModelError("", " Only PDF files supported with the max size of 20 MB.");
                     return View(viewModel);
                 }
             }
@@ -69,7 +69,7 @@ namespace ProgPoe.Controllers
                 _databaseContext.Claims.Add(newClaim);
                 await _databaseContext.SaveChangesAsync();
 
-                var uploadDirectory = Path.Combine(_webEnvironment.WebRootPath, "documents");
+                var uploadDirectory = Path.Combine(_webEnvironment.WebRootPath, "SupportingDocuments");
 
                 foreach (var file in viewModel.SupportingDocuments)
                 {

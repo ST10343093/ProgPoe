@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vd1w7HGJ4Ukpu2cm7V/9Z4UqsQ/Y5f52tpsY7EFgJaM=",
+  "Hash": "npd1nsqN3px77qpUE5oI1yXIuI2yWymnQ/Szg+yO9b8=",
   "Source": "ProgPoe",
   "BasePath": "_content/ProgPoe",
   "Mode": "Default",
@@ -2371,6 +2371,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\lab_services_student\\source\\repos\\ProgPoe\\wwwroot\\SupportingDocuments\\c62ee4d7-c7c8-4f0b-9317-b6d6b7435f80_lorem facts.pdf",
+      "SourceId": "ProgPoe",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lab_services_student\\source\\repos\\ProgPoe\\wwwroot\\",
+      "BasePath": "_content/ProgPoe",
+      "RelativePath": "SupportingDocuments/c62ee4d7-c7c8-4f0b-9317-b6d6b7435f80_lorem facts.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\SupportingDocuments\\c62ee4d7-c7c8-4f0b-9317-b6d6b7435f80_lorem facts.pdf"
     }
   ]
 }
