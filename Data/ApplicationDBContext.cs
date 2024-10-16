@@ -9,7 +9,10 @@ namespace ProgPoe.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<ProgPoe.Models.Claim> Claim { get; set; } = default!;
+        public DbSet<Document> Documents { get; set; }
+
+        public DbSet<Claim> Claims { get; set; }
+
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }
