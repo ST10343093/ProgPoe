@@ -1,0 +1,78 @@
+﻿@model IEnumerable<ProgPoe.Models.Claim>
+
+@{
+    ViewBag.Title = "Pending Claims for Academic Manager";
+}
+
+<body>
+    <div class="container-claims">
+        <h2>Pending Claims for Academic Manager</h2>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Claim ID</th>
+                    <th>Submitted By</th>
+                    <th>Date Submitted</th>
+                    <th>Hours Worked</th>
+                    <th>Hourly Rate</th>
+                    <th>Total Amount</th>
+                    <th>Supporting Documents</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claim in Model)
+                {
+                    <tr>
+                        <td>@claim.ClaimId</td>
+                        <td>@claim.ApplicationUser?.Email</td>
+                        <td>@claim.DateSubmitted.ToString("yyyy-MM-dd")</td>
+                        <td>@claim.HoursWorked</td>
+                        <td>R @claim.HourlyRate</td>
+                        <td>R @claim.TotalAmount</td>
+                        <td>
+                            @if (claim.Documents != null && claim.Documents.Any())
+                            {
+                                <ul style="list-style-type: none; padding: 0;">
+                                    @foreach (var doc in claim.Documents)
+                                    {
+                                        <li>
+                                            <i class="fa-solid fa-download"></i>
+                                            <a href="@Url.Content("~/uploads/" + doc.DocumentName)" target="_blank" style="text-decoration: none;" class="document-link">View Document</a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <span>No Documents</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <!-- Approve form -->
+                                <form asp-action="Approve" method="post">
+                                    <input type="hidden" name="claimId" value="@claim.ClaimId" />
+                                    <input type="submit" value="Approve" class="btn btn-approve" />
+                                </form>
+
+                                <!-- Reject form -->
+                                <form asp-action="Reject" method="post" style="display:inline;">
+                                    <input type="hidden" name="claimId" value="@claim.ClaimId" />
+                                    <input type="submit" value="Reject" class="btn btn-reject" />
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (!Model.Any())
+        {
+            <p>No pending claims to review at this time.</p>
+        }
+    </div>
+
+</body>

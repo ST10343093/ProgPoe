@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProgPoe")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06db6b8767a3fa175eede36b3e73c31fffacab8e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2972f7fe4a3df1f55fe1c11a32774294e74847f")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProgPoe")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProgPoe")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
