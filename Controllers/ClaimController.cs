@@ -139,5 +139,26 @@ namespace ProgPoe.Controllers
             // Return the claims to the view for display
             return View(userClaims);
         }
+
+        public bool IsValidDocument(IFormFile file)
+
+        {
+
+            // Confirm the file is not null
+
+            if (file == null)
+
+            {
+
+                return false;
+
+            }
+
+            // Check if the file type is PDF and size is 15 MB or less
+
+            return file.ContentType == "application/pdf" && file.Length <= 15 * 1024 * 1024; // 15 MB
+
+        }
+
     }
 }
