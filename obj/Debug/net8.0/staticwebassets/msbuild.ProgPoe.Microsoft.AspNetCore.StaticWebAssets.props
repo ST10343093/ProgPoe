@@ -976,6 +976,38 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\ProgPoe.bundle.scp.css))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SupportingDocuments\1bbf729a-9403-4a3e-932c-9aa4414cff5e_lorem facts.pdf))">
+      <SourceType>Package</SourceType>
+      <SourceId>ProgPoe</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ProgPoe</BasePath>
+      <RelativePath>SupportingDocuments/1bbf729a-9403-4a3e-932c-9aa4414cff5e_lorem facts.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SupportingDocuments\1bbf729a-9403-4a3e-932c-9aa4414cff5e_lorem facts.pdf))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SupportingDocuments\4c38fa68-6ec4-4987-a427-d6b2b1f4c8a0_lorem facts.pdf))">
+      <SourceType>Package</SourceType>
+      <SourceId>ProgPoe</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ProgPoe</BasePath>
+      <RelativePath>SupportingDocuments/4c38fa68-6ec4-4987-a427-d6b2b1f4c8a0_lorem facts.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SupportingDocuments\4c38fa68-6ec4-4987-a427-d6b2b1f4c8a0_lorem facts.pdf))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SupportingDocuments\c62ee4d7-c7c8-4f0b-9317-b6d6b7435f80_lorem facts.pdf))">
       <SourceType>Package</SourceType>
       <SourceId>ProgPoe</SourceId>
@@ -991,6 +1023,38 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SupportingDocuments\c62ee4d7-c7c8-4f0b-9317-b6d6b7435f80_lorem facts.pdf))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SupportingDocuments\cae9064d-2f0e-4836-b937-ddd4c8078bb0_Welcome to ABC Retailers.pdf))">
+      <SourceType>Package</SourceType>
+      <SourceId>ProgPoe</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ProgPoe</BasePath>
+      <RelativePath>SupportingDocuments/cae9064d-2f0e-4836-b937-ddd4c8078bb0_Welcome to ABC Retailers.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SupportingDocuments\cae9064d-2f0e-4836-b937-ddd4c8078bb0_Welcome to ABC Retailers.pdf))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SupportingDocuments\ef07eefa-9f60-43a4-b8de-ae36a0780fc6_Discover ABC Retailers.pdf))">
+      <SourceType>Package</SourceType>
+      <SourceId>ProgPoe</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ProgPoe</BasePath>
+      <RelativePath>SupportingDocuments/ef07eefa-9f60-43a4-b8de-ae36a0780fc6_Discover ABC Retailers.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SupportingDocuments\ef07eefa-9f60-43a4-b8de-ae36a0780fc6_Discover ABC Retailers.pdf))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

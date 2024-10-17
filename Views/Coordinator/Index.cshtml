@@ -4,6 +4,86 @@
     ViewBag.Title = "Pending Claims for Programme Coordinator";
 }
 
+<style>
+    body {
+        background-color: #2a2a2a; /* Light black background for the entire page */
+        color: #f4f4f9; /* Light text color for better contrast */
+        font-family: 'Arial', sans-serif; /* Consistent font family */
+    }
+
+    .container-claims {
+        max-width: 900px; /* Max width for the claims container */
+        margin: 50px auto; /* Center the container */
+        padding: 30px; /* Padding inside the container */
+        background-color: #3b3b3b; /* Darker background for the form */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    }
+
+    h2 {
+        font-size: 2rem; /* Heading font size */
+        color: #ffcc00; /* Highlight color for the heading */
+        text-align: center; /* Center align heading */
+        margin-bottom: 20px; /* Space below the heading */
+    }
+
+    .table {
+        width: 100%; /* Full width for table */
+        margin-top: 20px; /* Space above the table */
+        border-collapse: collapse; /* Collapse borders */
+    }
+
+        .table th, .table td {
+            padding: 15px; /* Padding for table cells */
+            text-align: left; /* Left align text */
+            border-bottom: 1px solid #555; /* Border for rows */
+            color: #f4f4f9; /* Light text color for table */
+        }
+
+        .table th {
+            background-color: #4b4b4b; /* Darker background for table headers */
+            color: #ffcc00; /* Highlight color for table headers */
+        }
+
+    .btn-approve {
+        background-color: #28a745; /* Green color for approve button */
+        color: #fff; /* White text color */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 5px 10px; /* Padding for button */
+        cursor: pointer; /* Pointer cursor for button */
+        transition: background-color 0.3s; /* Smooth transition for hover */
+    }
+
+        .btn-approve:hover {
+            background-color: #218838; /* Darker shade on hover */
+        }
+
+    .btn-reject {
+        background-color: #dc3545; /* Red color for reject button */
+        color: #fff; /* White text color */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 5px 10px; /* Padding for button */
+        cursor: pointer; /* Pointer cursor for button */
+        transition: background-color 0.3s; /* Smooth transition for hover */
+    }
+
+        .btn-reject:hover {
+            background-color: #c82333; /* Darker shade on hover */
+        }
+
+    .document-link {
+        color: #ffcc00; /* Highlight color for document links */
+        text-decoration: none; /* Remove underline */
+        transition: color 0.3s; /* Smooth transition for hover */
+    }
+
+        .document-link:hover {
+            color: #e6b800; /* Darker shade on hover */
+        }
+</style>
+
 <body>
     <div class="container-claims">
         <h2>Pending Claims for Programme Coordinator</h2>
@@ -39,7 +119,7 @@
                                     {
                                         <li>
                                             <i class="fa-solid fa-download"></i>
-                                            <a href="@Url.Content("~/uploads/" + doc.DocumentName)" target="_blank" style="text-decoration: none;" class="document-link">View Document</a>
+                                            <a href="@Url.Content("~/uploads/" + doc.DocumentName)" target="_blank" class="document-link">View Document</a>
                                         </li>
                                     }
                                 </ul>
@@ -54,13 +134,13 @@
                                 <!-- Approve form -->
                                 <form asp-action="Approve" method="post">
                                     <input type="hidden" name="claimId" value="@claim.ClaimId" />
-                                    <input type="submit" value="Approve" class="btn btn-approve" />
+                                    <input type="submit" value="Approve" class="btn-approve" />
                                 </form>
 
                                 <!-- Reject form -->
                                 <form asp-action="Reject" method="post" style="display:inline;">
                                     <input type="hidden" name="claimId" value="@claim.ClaimId" />
-                                    <input type="submit" value="Reject" class="btn btn-reject" />
+                                    <input type="submit" value="Reject" class="btn-reject" />
                                 </form>
                             </div>
                         </td>
@@ -74,5 +154,4 @@
             <p>No pending claims to review at this time.</p>
         }
     </div>
-
 </body>

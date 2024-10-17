@@ -3,15 +3,79 @@
 @{
     ViewData["Title"] = "Application Roles";
 }
+
+<style>
+    body {
+        background-color: #2a2a2a; /* Light black background for the entire page */
+        color: #f4f4f9; /* Light text color for better contrast */
+        font-family: 'Arial', sans-serif; /* Consistent font family */
+    }
+
+    h1 {
+        text-align: center; /* Center align the heading */
+        font-size: 2.5rem; /* Increased font size */
+        color: #ffcc00; /* Highlight color for the heading */
+        margin-bottom: 20px; /* Space below the heading */
+    }
+
+    p {
+        text-align: center; /* Center align paragraph */
+        margin-bottom: 30px; /* Space below the paragraph */
+    }
+
+    .table {
+        width: 100%; /* Full width table */
+        margin: 0 auto; /* Center the table */
+        border-collapse: collapse; /* Collapse borders */
+    }
+
+        .table th, .table td {
+            padding: 15px; /* Padding for table cells */
+            text-align: left; /* Left align text in cells */
+            border: 1px solid #555; /* Border for cells */
+            color: #f4f4f9; /* White text color */
+        }
+
+        .table thead {
+            background-color: #1b1b1b; /* Darker background for header */
+        }
+
+        .table th {
+            color: #ffcc00; /* Highlighted color for header text */
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #3b3b3b; /* Alternating row color */
+        }
+
+        .table tbody tr:hover {
+            background-color: #444; /* Hover effect on rows */
+        }
+
+    .create-role-link {
+        display: inline-block; /* Make the link block-level for padding */
+        padding: 10px 20px; /* Padding for the link */
+        background-color: #007bff; /* Button background color */
+        color: #fff; /* White text color */
+        border-radius: 5px; /* Rounded corners */
+        text-decoration: none; /* Remove underline */
+        transition: background-color 0.3s; /* Transition effect */
+    }
+
+        .create-role-link:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+</style>
+
 <h1>View Roles</h1>
 <p>
-    <a asp-action="Create">Create Role</a>
+    <a class="create-role-link" asp-action="Create">Create Role</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Id)</th>
-            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Id)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Name)</th>
             <th></th>
         </tr>
     </thead>

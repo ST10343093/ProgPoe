@@ -1,17 +1,89 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IdentityRole
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
+
+<style>
+    /* Custom styles for the page */
+    body {
+        background-color: #2a2a2a; /* Light black background for the entire page */
+        color: #f4f4f9; /* Light text color for better contrast */
+    }
+
+    /* Custom styles for the form container */
+    .role-form-container {
+        max-width: 800px; /* Increased max width for larger screens */
+        margin: 0 auto; /* Center the form horizontally */
+        padding: 40px; /* Increased padding for inner spacing */
+        background-color: #1b1b1b; /* Light black background for the form container */
+        border-radius: 15px; /* Rounded corners */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+        color: #f4f4f9; /* Light text color for contrast */
+    }
+
+        .role-form-container h2 {
+            margin-bottom: 30px; /* Increased space below the heading */
+            font-size: 2.5rem; /* Increased font size for the heading */
+            color: #ffcc00; /* Highlighted color for the heading */
+            text-align: center; /* Center align the heading */
+        }
+
+    .info-text {
+        font-size: 1.2rem; /* Larger font size for info text */
+        color: #cccccc; /* Slightly lighter color for contrast */
+        margin-bottom: 30px; /* Increased space below the info text */
+        text-align: center; /* Center align the text */
+    }
+
+    .form-floating {
+        margin-bottom: 25px; /* Increased space between form fields */
+    }
+
+    .form-control {
+        padding: 15px; /* Increased padding for form inputs */
+        font-size: 1.1rem; /* Increased font size for input fields */
+        background-color: #3b3b3b; /* Darker background for input fields */
+        color: #f4f4f9; /* Light text color for input fields */
+        border: 1px solid #555; /* Border for better visibility */
+    }
+
+        .form-control::placeholder {
+            color: #cccccc; /* Darker placeholder color for better contrast */
+            opacity: 1; /* Make placeholder fully opaque */
+        }
+
+    .btn-primary {
+        background-color: #ffcc00; /* Updated to match the theme */
+        border-color: #ffcc00; /* Match border color */
+        padding: 15px; /* Increased padding for button */
+        font-size: 1.2rem; /* Increased font size for button */
+        transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+    }
+
+        .btn-primary:hover {
+            background-color: #e6b800; /* Darker shade on hover */
+            border-color: #e6b800; /* Match border color */
+        }
+
+    /* Validation error messages */
+    .text-danger {
+        font-size: 1rem; /* Slightly larger font size for error messages */
+    }
+</style>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="role-form-container">
             <h2>Create Role</h2>
+            <p class="info-text">Enter the name of the role you wish to create.</p> <!-- Reduced text size and content -->
             <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Name" class="form-control" aria-required="true" />
-                <label asp-for="Name"></label>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-        </form>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating">
+                    <input asp-for="Name" class="form-control" aria-required="true" placeholder=" " />
+                    <label asp-for="Name"></label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+            </form>
+        </div>
     </div>
 </div>

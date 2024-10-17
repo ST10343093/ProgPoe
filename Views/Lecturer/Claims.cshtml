@@ -1,5 +1,110 @@
 ﻿@model IEnumerable<ProgPoe.Models.Claim>
 
+<style>
+    body {
+        background-color: #2a2a2a; /* Light black background for the entire page */
+        color: #f4f4f9; /* Light text color for better contrast */
+        font-family: 'Arial', sans-serif; /* Consistent font family */
+    }
+
+    .container-dashboard {
+        max-width: 900px; /* Max width for the dashboard container */
+        margin: 50px auto; /* Center the container */
+        padding: 30px; /* Padding inside the container */
+        background-color: #3b3b3b; /* Darker background for the container */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    }
+
+    h2 {
+        font-size: 2rem; /* Heading font size */
+        color: #ffcc00; /* Highlight color for the heading */
+        text-align: center; /* Center align heading */
+        margin-bottom: 20px; /* Space below the heading */
+    }
+
+    .filter-section {
+        margin-bottom: 20px; /* Space below the filter section */
+    }
+
+    .filter-form {
+        display: flex; /* Flexbox for layout */
+        gap: 15px; /* Space between form elements */
+        justify-content: center; /* Center align form elements */
+    }
+
+    .form-control {
+        background-color: #3b3b3b; /* Dark background for input fields */
+        color: #f4f4f9; /* Light text color for inputs */
+        border: 1px solid #555; /* Border color for inputs */
+        border-radius: 5px; /* Rounded corners for inputs */
+        padding: 10px; /* Padding for inputs */
+        flex: 1; /* Allow inputs to grow */
+    }
+
+    .btn-filter {
+        background-color: #007bff; /* Bootstrap primary color for button */
+        color: #fff; /* White text color */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 10px 20px; /* Padding for button */
+        cursor: pointer; /* Pointer cursor for button */
+        transition: background-color 0.3s; /* Smooth transition for hover */
+    }
+
+        .btn-filter:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+    .table {
+        width: 100%; /* Full width for table */
+        margin-top: 20px; /* Space above the table */
+        border-collapse: collapse; /* Collapse borders */
+    }
+
+        .table th, .table td {
+            padding: 15px; /* Padding for table cells */
+            text-align: left; /* Left align text */
+            border-bottom: 1px solid #555; /* Border for rows */
+            color: #f4f4f9; /* Light text color for table */
+        }
+
+        .table th {
+            background-color: #4b4b4b; /* Darker background for table headers */
+            color: #ffcc00; /* Highlight color for table headers */
+        }
+
+        .table tr:hover {
+            background-color: #444; /* Darker background on row hover */
+        }
+
+    .btn-submit {
+        display: inline-block; /* Inline block for button */
+        margin-top: 20px; /* Space above the button */
+        padding: 10px 20px; /* Padding for button */
+        background-color: #28a745; /* Green color for button */
+        color: #fff; /* White text color */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        text-decoration: none; /* Remove underline */
+        transition: background-color 0.3s; /* Smooth transition for hover */
+    }
+
+        .btn-submit:hover {
+            background-color: #218838; /* Darker shade on hover */
+        }
+
+    .document-link {
+        color: #ffcc00; /* Highlight color for document links */
+        text-decoration: none; /* Remove underline */
+        transition: color 0.3s; /* Smooth transition for hover */
+    }
+
+        .document-link:hover {
+            color: #e6b800; /* Darker shade on hover */
+        }
+</style>
+
 <div class="container-dashboard">
     <h2>Lecturer Dashboard</h2>
 
@@ -36,12 +141,12 @@
                     <td>
                         @if (claim.Documents != null && claim.Documents.Any())
                         {
-                            <ul style="list-style-type: none;">
+                            <ul style="list-style-type: none; padding: 0;">
                                 @foreach (var doc in claim.Documents)
                                 {
                                     <li>
                                         <i class="fa-solid fa-download"></i>
-                                        <a href="@Url.Content("~/uploads/" + doc.DocumentName)" target="_blank" style="text-decoration: none; color: #212529;">View Document</a>
+                                        <a href="@Url.Content("~/uploads/" + doc.DocumentName)" target="_blank" class="document-link">View Document</a>
                                     </li>
                                 }
                             </ul>

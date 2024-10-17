@@ -1,41 +1,105 @@
 ﻿@model ProgPoe.Models.ClaimViewModel
- 
+
 @{
     ViewData["Title"] = "Submit Claim";
 }
- 
+
+<style>
+    body {
+        background-color: #2a2a2a; /* Light black background for the entire page */
+        color: #f4f4f9; /* Light text color for better contrast */
+        font-family: 'Arial', sans-serif; /* Consistent font family */
+    }
+
+    .container-claims {
+        max-width: 700px; /* Max width for the form container */
+        margin: 50px auto; /* Center the container */
+        padding: 30px; /* Padding inside the container */
+        background-color: #3b3b3b; /* Darker background for the form */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    }
+
+    h2 {
+        font-size: 2rem; /* Heading font size */
+        color: #ffcc00; /* Highlight color for the heading */
+        text-align: center; /* Center align heading */
+        margin-bottom: 20px; /* Space below the heading */
+    }
+
+    .form-group {
+        margin-bottom: 20px; /* Space between form groups */
+    }
+
+    label {
+        color: #f4f4f9; /* Light text color for labels */
+    }
+
+    .form-control {
+        background-color: #4b4b4b; /* Darker background for inputs */
+        border: 1px solid #555; /* Dark border for inputs */
+        border-radius: 5px; /* Rounded corners for inputs */
+        color: #f4f4f9; /* Light text color for inputs */
+    }
+
+        .form-control::placeholder {
+            color: #bbb; /* Placeholder color */
+        }
+
+    .text-danger {
+        font-size: 0.9rem; /* Font size for validation messages */
+    }
+
+    .btn-claims {
+        background-color: #007bff; /* Button background color */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners for buttons */
+        padding: 10px 20px; /* Padding for buttons */
+        color: #fff; /* White text color for buttons */
+        font-size: 1rem; /* Font size for buttons */
+        display: inline-flex; /* Align icon and text */
+        align-items: center; /* Center icon vertically */
+        justify-content: center; /* Center icon horizontally */
+        transition: background-color 0.3s; /* Smooth transition for hover */
+    }
+
+        .btn-claims:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+</style>
+
 <div class="container-claims">
-<h2>Submit Your Claim</h2>
- 
+    <h2>Submit Your Claim</h2>
+
     <form asp-action="Create" enctype="multipart/form-data" method="post">
-<div class="form-group">
-<label asp-for="HoursWorked"></label>
-<input asp-for="HoursWorked" class="form-control" required />
-<span asp-validation-for="HoursWorked" class="text-danger"></span>
-</div>
- 
         <div class="form-group">
-<label asp-for="HourlyRate"></label>
-<input asp-for="HourlyRate" class="form-control" required />
-<span asp-validation-for="HourlyRate" class="text-danger"></span>
-</div>
- 
+            <label asp-for="HoursWorked"></label>
+            <input asp-for="HoursWorked" class="form-control" required />
+            <span asp-validation-for="HoursWorked" class="text-danger"></span>
+        </div>
+
         <div class="form-group">
-<label asp-for="Notes"></label>
-<textarea asp-for="Notes" class="form-control" rows="4" placeholder="Add any additional notes..."></textarea>
-<span asp-validation-for="Notes" class="text-danger"></span>
-</div>
- 
+            <label asp-for="HourlyRate"></label>
+            <input asp-for="HourlyRate" class="form-control" required />
+            <span asp-validation-for="HourlyRate" class="text-danger"></span>
+        </div>
+
         <div class="form-group">
-<label for="SupportingDocuments" style="@(ViewBag.InvalidFile != null && (bool)ViewBag.InvalidFile ? "color: red;" : "color: black;")">Supporting Documents (PDF only, max 15MB)</label>
-<input type="file" name="SupportingDocuments" class="form-control" multiple required />
-<span asp-validation-for="SupportingDocuments" class="text-danger"></span>
+            <label asp-for="Notes"></label>
+            <textarea asp-for="Notes" class="form-control" rows="4" placeholder="Add any additional notes..."></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="SupportingDocuments" style="@(ViewBag.InvalidFile != null && (bool)ViewBag.InvalidFile ? "color: red;" : "color: #f4f4f9;")">Supporting Documents (PDF only, max 15MB)</label>
+            <input type="file" name="SupportingDocuments" class="form-control" multiple required />
+            <span asp-validation-for="SupportingDocuments" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn-claims"><i class="fa-solid fa-upload"></i> Submit Claim</button>
+    </form>
 </div>
- 
-        <button type="submit" class="btn-claims btn-primary"><i class="fa-solid fa-upload"></i> Submit Claim</button>
-</form>
-</div>
- 
+
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }

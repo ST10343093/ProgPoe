@@ -20,11 +20,13 @@ namespace ProgPoe.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
             _logger = logger;
         }
 
@@ -115,6 +117,29 @@ namespace ProgPoe.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    // Get the user by email
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    if (user != null)
+                    {
+                        // Get the user's roles
+                        var roles = await _userManager.GetRolesAsync(user);
+
+                        // Redirect based on role
+                        if (roles.Contains("Lecturer"))
+                        {
+                            return LocalRedirect(Url.Content("~/Lecturer/Claims"));
+                        }
+                        else if (roles.Contains("Coordinator"))
+                        {
+                            return LocalRedirect(Url.Content("~/Coordinator/Index"));
+                        }
+                        else if (roles.Contains("Manager"))
+                        {
+                            return LocalRedirect(Url.Content("~/Manager/Index"));
+                        }
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
