@@ -123,6 +123,7 @@
             <tr>
                 <th>Claim ID</th>
                 <th>Date Submitted</th>
+                <th>Claim For</th> <!-- New column header -->
                 <th>Hours Worked</th>
                 <th>Hourly Rate</th>
                 <th>Total Amount</th>
@@ -135,18 +136,19 @@
                 <tr>
                     <td>@claim.ClaimId</td>
                     <td>@claim.DateSubmitted.ToShortDateString()</td>
+                    <td>@claim.StartDate.ToString("MMM yyyy")</td> <!-- Displaying Claim For -->
                     <td>@claim.HoursWorked</td>
                     <td>R @claim.HourlyRate</td>
                     <td>R @claim.TotalAmount</td>
                     <td>
                         @if (claim.Documents != null && claim.Documents.Any())
                         {
-                            <ul style="list-style-type: none; padding: 0;">
+                            <ul style="list-style-type: none;">
                                 @foreach (var doc in claim.Documents)
                                 {
                                     <li>
                                         <i class="fa-solid fa-download"></i>
-                                        <a href="@Url.Content("~/SupportingDocuments/" + doc.DocumentName)" target="_blank" class="document-link">View Document</a>
+                                        <a href="@Url.Content("~/SupportingDocuments/" + doc.DocumentName)" target="_blank" style="text-decoration: none; color: #212529;">View Document</a>
                                     </li>
                                 }
                             </ul>

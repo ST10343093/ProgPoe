@@ -4,74 +4,10 @@
     ViewData["Title"] = "Submit Claim";
 }
 
-<style>
-    body {
-        background-color: #2a2a2a; /* Light black background for the entire page */
-        color: #f4f4f9; /* Light text color for better contrast */
-        font-family: 'Arial', sans-serif; /* Consistent font family */
-    }
-
-    .container-claims {
-        max-width: 700px; /* Max width for the form container */
-        margin: 50px auto; /* Center the container */
-        padding: 30px; /* Padding inside the container */
-        background-color: #3b3b3b; /* Darker background for the form */
-        border-radius: 10px; /* Rounded corners */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    }
-
-    h2 {
-        font-size: 2rem; /* Heading font size */
-        color: #ffcc00; /* Highlight color for the heading */
-        text-align: center; /* Center align heading */
-        margin-bottom: 20px; /* Space below the heading */
-    }
-
-    .form-group {
-        margin-bottom: 20px; /* Space between form groups */
-    }
-
-    label {
-        color: #f4f4f9; /* Light text color for labels */
-    }
-
-    .form-control {
-        background-color: #4b4b4b; /* Darker background for inputs */
-        border: 1px solid #555; /* Dark border for inputs */
-        border-radius: 5px; /* Rounded corners for inputs */
-        color: #f4f4f9; /* Light text color for inputs */
-    }
-
-        .form-control::placeholder {
-            color: #bbb; /* Placeholder color */
-        }
-
-    .text-danger {
-        font-size: 0.9rem; /* Font size for validation messages */
-    }
-
-    .btn-claims {
-        background-color: #007bff; /* Button background color */
-        border: none; /* Remove default border */
-        border-radius: 5px; /* Rounded corners for buttons */
-        padding: 10px 20px; /* Padding for buttons */
-        color: #fff; /* White text color for buttons */
-        font-size: 1rem; /* Font size for buttons */
-        display: inline-flex; /* Align icon and text */
-        align-items: center; /* Center icon vertically */
-        justify-content: center; /* Center icon horizontally */
-        transition: background-color 0.3s; /* Smooth transition for hover */
-    }
-
-        .btn-claims:hover {
-            background-color: #0056b3; /* Darker shade on hover */
-        }
-</style>
-
 <div class="container-claims">
     <h2>Submit Your Claim</h2>
 
-    <form asp-action="Create" enctype="multipart/form-data" method="post">
+    <form asp-action="Create" enctype="multipart/form-data" method="post" id="claimForm">
         <div class="form-group">
             <label asp-for="HoursWorked"></label>
             <input asp-for="HoursWorked" class="form-control" required />
@@ -85,21 +21,95 @@
         </div>
 
         <div class="form-group">
+            <label asp-for="StartDate"></label>
+            <input asp-for="StartDate" type="date" class="form-control" required />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EndDate"></label>
+            <input asp-for="EndDate" type="date" class="form-control" required />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
             <label asp-for="Notes"></label>
-            <textarea asp-for="Notes" class="form-control" rows="4" placeholder="Add any additional notes..."></textarea>
+<textarea asp-for="Notes" class="form-control" rows="4" placeholder="Add any additional notes..."></textarea>
             <span asp-validation-for="Notes" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label for="SupportingDocuments" style="@(ViewBag.InvalidFile != null && (bool)ViewBag.InvalidFile ? "color: red;" : "color: #f4f4f9;")">Supporting Documents (PDF only, max 15MB)</label>
-            <input type="file" name="SupportingDocuments" class="form-control" multiple required />
+            <label for="SupportingDocuments" style="@(ViewBag.InvalidFile != null && (bool)ViewBag.InvalidFile ? "color: red;" : "color: black;")">Supporting Documents (PDF only, max 15MB)</label>
+            <input type="file" name="SupportingDocuments" id="SupportingDocuments" class="form-control" multiple required />
             <span asp-validation-for="SupportingDocuments" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn-claims"><i class="fa-solid fa-upload"></i> Submit Claim</button>
+        <button type="submit" class="btn-claims btn-primary"><i class="fa-solid fa-upload"></i> Submit Claim</button>
     </form>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // File validation
+            $('#SupportingDocuments').on('change', function () {
+                let maxFileSize = 15 * 1024 * 1024; // 15MB
+                let valid = true;
+
+                $.each(this.files, function (i, file) {
+                    if (file.type !== 'application/pdf') {
+                        alert('Only PDF files are allowed.');
+                        valid = false;
+                        return false; // Exit loop
+                    }
+                    if (file.size > maxFileSize) {
+                        alert('File size cannot exceed 15MB.');
+                        valid = false;
+                        return false;
+                    }
+                });
+
+                if (!valid) {
+                    $(this).val('');
+                }
+            });
+
+            // Date range validation
+            $('#claimForm').on('submit', function (e) {
+                const startDate = new Date($('#StartDate').val());
+                const endDate = new Date($('#EndDate').val());
+                const today = new Date();
+
+                // Set the first and last day of the current and previous months
+                const firstDayCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+                const lastDayCurrentMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0); // Last day of current month
+                const firstDayPreviousMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+                const lastDayPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0); // Last day of previous month
+
+                // Calculate the difference in days between start and end date
+                const daysDifference = (endDate - startDate) / (1000 * 60 * 60 * 24);
+
+                // Check if start and end dates are within allowed range (current or previous month) and within 31 days
+                if (
+                    !(
+                        (startDate >= firstDayCurrentMonth && endDate <= lastDayCurrentMonth) ||
+                        (startDate >= firstDayPreviousMonth && endDate <= lastDayPreviousMonth)
+                    ) || daysDifference > 32
+                ) {
+                    alert('The date range must be within the current or previous month and cannot exceed 30 days.');
+                    e.preventDefault();
+                }
+            });
+
+            // Check for existing claim for the month
+        @if (ViewData["ClaimExists"] != null && (bool)ViewData["ClaimExists"])
+        {
+            <text>
+                    alert("You have already submitted a claim for this month.");
+            </text>
+        }
+                        });
+    </script>
 }

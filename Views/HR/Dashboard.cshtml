@@ -1,0 +1,66 @@
+﻿@model ProgPoe.Models.DashboardViewModel
+ 
+<div class="container-dashboard">
+<h1 style="color:#fff;">HR Dashboard</h1>
+ 
+    <!-- Claims Processed Section -->
+<div class="dashboard-section">
+<div class="dashboard-card">
+<h2>Claims Processed</h2>
+<div class="card-content">
+<div class="card-item">
+<h3>@Model.TotalClaims</h3>
+<p>Total Claims</p>
+</div>
+<div class="card-item">
+<h3>@Model.PendingClaims</h3>
+<p>Pending Review</p>
+</div>
+<div class="card-item">
+<h3>@Model.ApprovedClaims</h3>
+<p>Approved</p>
+</div>
+</div>
+</div>
+</div>
+ 
+    <!-- Payments Overview Section -->
+<div class="dashboard-section">
+<div class="dashboard-card">
+<h2>Payments Overview</h2>
+<div class="card-content">
+<div class="card-item">
+<h3>R @Model.TotalPayments</h3>
+<p>Total Payments</p>
+</div>
+<div class="card-item">
+<h3>R @Model.PendingPayments</h3>
+<p>Pending Payments</p>
+</div>
+<div class="card-item">
+<h3>R @Model.CompletedPayments</h3>
+<p>Completed Payments</p>
+</div>
+</div>
+</div>
+</div>
+ 
+    <!-- Reports Section -->
+<div class="dashboard-section">
+<div class="dashboard-card">
+<h2>Reports</h2>
+<p>Generate detailed reports on claims and payments.</p>
+<a href="/Hr/GenerateReport" class="btn-reports"><i class="fa fa-bar-chart" aria-hidden="true"></i> View Reports</a>
+</div>
+</div>
+ 
+    <!-- Manaage Users Section -->
+<div class="dashboard-section">
+<div class="dashboard-card">
+<h2>Manage Users</h2>
+<p>Manage List of users and maintian access levels</p>
+<a href="/ManageUsers/Index" class="btn-reports"><i class="fa fa-users" aria-hidden="true"></i> View Users</a>
+</div>
+</div>
+</div>
+ 

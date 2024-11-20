@@ -1,0 +1,52 @@
+﻿@model ProgPoe.Models.ProcessPaymentsViewModel
+ 
+<div class="container-payments">
+<h1>Process Payments</h1>
+ 
+    <table class="table">
+<thead>
+<tr>
+<th>Claim ID</th>
+<th>Lecturer Name</th>
+<th>Total Amount</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+
+            @foreach (var claim in Model.Claims)
+
+            {
+<tr>
+<td>@claim.ClaimId</td>
+<td>@claim.ApplicationUser.Firstname @claim.ApplicationUser.Lastname</td>
+<td>R @claim.TotalAmount.ToString("N2")</td>
+<td>@claim.Status</td>
+<td>
+<form asp-action="ProcessPayment" method="post">
+<input type="hidden" name="claimId" value="@claim.ClaimId" />
+<button type="submit" class="btn-process btn-process-success">Process Payment</button>
+</form>
+</td>
+</tr>
+
+            }
+</tbody>
+</table>
+
+    @if (!Model.Claims.Any())
+
+    {
+<p>No pending payments to review at this time.</p>
+
+    }
+ 
+    <div class="summary">
+<h2>Payment Summary</h2>
+<p>Total Claims Processed: @Model.TotalClaims</p>
+<p>Total Amount to be Paid: R @Model.TotalAmountToPay.ToString("N2")</p>
+<p>Pending Payments: @Model.PendingPayments</p>
+</div>
+</div>
+ 

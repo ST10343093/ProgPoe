@@ -95,7 +95,7 @@ namespace ProgPoe.Controllers
             _context.Claims.Add(claim);
             await _context.SaveChangesAsync();
 
-            var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
+            var uploadsFolder = Path.Combine(_environment.WebRootPath, "SupportingDocuments");
             foreach (var file in model.SupportingDocuments)
             {
                 var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
