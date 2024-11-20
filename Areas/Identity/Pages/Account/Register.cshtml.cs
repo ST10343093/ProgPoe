@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -41,7 +42,6 @@ namespace ProgPoe.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             RoleManager<IdentityRole> roleManager)
-
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -52,90 +52,29 @@ namespace ProgPoe.Areas.Identity.Pages.Account
             _roleManager = roleManager;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public string ReturnUrl { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-
-            [Required]
-            [Display(Name = "First Name")]
             public string Firstname { get; set; }
-
-            [Required]
-            [Display(Name = "Last Name")]
             public string Lastname { get; set; }
-
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
             public string Email { get; set; }
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            public string PhoneNumber { get; set; }
             public string Password { get; set; }
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-
-            [Required]
-            public string? Role { get; set; }
 
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
         }
 
-
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
-            //Initialized it
-            Input = new InputModel()
-            {
-                RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
-                {
-                    Text = i,
-                    Value = i
-                })
-            };
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -151,15 +90,14 @@ namespace ProgPoe.Areas.Identity.Pages.Account
 
                 user.Firstname = Input.Firstname;
                 user.Lastname = Input.Lastname;
+                user.PhoneNumber = Input.PhoneNumber;
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
-                    //Assign the role to user
-                    await _userManager.AddToRoleAsync(user, Input.Role);
+                    await _userManager.AddToRoleAsync(user, "Default");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -180,7 +118,7 @@ namespace ProgPoe.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return RedirectToPage("/DefaultUser/Index");
                     }
                 }
                 foreach (var error in result.Errors)
@@ -189,7 +127,6 @@ namespace ProgPoe.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
 
@@ -202,8 +139,7 @@ namespace ProgPoe.Areas.Identity.Pages.Account
             catch
             {
                 throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor.");
             }
         }
 
@@ -216,4 +152,34 @@ namespace ProgPoe.Areas.Identity.Pages.Account
             return (IUserEmailStore<IdentityUser>)_userStore;
         }
     }
+
+    public class RegisterValidator : AbstractValidator<RegisterModel.InputModel>
+    {
+        public RegisterValidator()
+        {
+            RuleFor(x => x.Firstname)
+                .NotEmpty().WithMessage("First Name is required.")
+                .MaximumLength(50).WithMessage("First Name cannot exceed 50 characters.");
+
+            RuleFor(x => x.Lastname)
+                .NotEmpty().WithMessage("Last Name is required.")
+                .MaximumLength(50).WithMessage("Last Name cannot exceed 50 characters.");
+
+            RuleFor(x => x.Email)
+                .NotEmpty().WithMessage("Email is required.")
+                .EmailAddress().WithMessage("Invalid Email Address.");
+
+            RuleFor(x => x.PhoneNumber)
+                .NotEmpty().WithMessage("Phone Number is required.")
+                .Matches(@"^\+27\d{9}$").WithMessage("Phone Number must be in the format +27123456789.");
+
+            RuleFor(x => x.Password)
+                .NotEmpty().WithMessage("Password is required.")
+                .MinimumLength(6).WithMessage("Your password length must be at least 6.");
+
+            RuleFor(x => x.ConfirmPassword)
+                .Equal(x => x.Password).WithMessage("Passwords do not match.");
+        }
+    }
 }
+
