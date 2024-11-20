@@ -10,40 +10,33 @@ namespace ProgPoe.Controllers
     [Authorize(Roles = "Lecturer")] // Restrict access to users with the Lecturer role
     public class LecturerController : Controller
     {
-        // Declare the database context and user manager for accessing claims and user info
-        private readonly ApplicationDbContext _dbContext;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
-        // Constructor to inject the necessary dependencies
-        public LecturerController(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager)
+        public LecturerController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
-            _dbContext = dbContext; // Initialize the database context
-            _userManager = userManager; // Initialize the user manager
+            _context = context;
+            _userManager = userManager;
         }
 
-        // GET: Display claims submitted by the current lecturer with optional date filtering
-        public async Task<IActionResult> Claims(DateTime? start, DateTime? end)
+        public async Task<IActionResult> Dashboard(DateTime? startDate, DateTime? endDate)
         {
-            // Get the currently logged-in user
-            var currentUser = await _userManager.GetUserAsync(User);
-            var currentUserId = await _userManager.GetUserIdAsync(currentUser); // Get the user's ID
+            var user = await _userManager.GetUserAsync(User);
+            var userId = await _userManager.GetUserIdAsync(user);
 
-            // Build a query to get claims for the current user, including supporting documents
-            var query = _dbContext.Claims
-                .Include(c => c.Documents) // Include related documents for each claim
-                .Where(c => c.ApplicationUserId == currentUserId); // Filter by the current user's ID
+            var claimsQuery = _context.Claims
+                .Include(c => c.Documents)
+                .Where(c => c.ApplicationUserId == userId);
 
-            // If start and end dates are provided, filter claims by submission date
-            if (start.HasValue && end.HasValue)
+            if (startDate.HasValue && endDate.HasValue)
             {
-                query = query.Where(c => c.DateSubmitted >= start.Value && c.DateSubmitted <= end.Value);
+                claimsQuery = claimsQuery.Where(c => c.DateSubmitted >= startDate.Value && c.DateSubmitted <= endDate.Value);
             }
 
-            // Execute the query and retrieve the list of claims
-            var claims = await query.ToListAsync();
+            var claims = await claimsQuery.ToListAsync();
 
-            // Return the claims to the view for display
             return View(claims);
         }
     }
 }
+

@@ -10,155 +10,138 @@ namespace ProgPoe.Controllers
     [Authorize(Roles = "Lecturer")]
     public class ClaimController : Controller
     {
-        // Declare dependencies for the database context, user manager, and web environment
-        private readonly ApplicationDbContext _databaseContext;
-        private readonly UserManager<IdentityUser> _accountManager;
-        private readonly IWebHostEnvironment _webEnvironment;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IWebHostEnvironment _environment;
 
-        // Constructor to initialize the dependencies
-        public ClaimController(ApplicationDbContext databaseContext, UserManager<IdentityUser> accountManager, IWebHostEnvironment webEnvironment)
+        public ClaimController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IWebHostEnvironment environment)
         {
-            _databaseContext = databaseContext;
-            _accountManager = accountManager;
-            _webEnvironment = webEnvironment;
+            _context = context;
+            _userManager = userManager;
+            _environment = environment;
         }
 
-        // GET: Display the claim creation form
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Handle the claim creation request
         [HttpPost]
-        [ValidateAntiForgeryToken] // Ensure the form is submitted securely
-        public async Task<IActionResult> Create(ClaimViewModel viewModel)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ClaimViewModel model)
         {
-            // Check if the form data is valid
             if (!ModelState.IsValid)
             {
-                return View(viewModel);
+                return View(model);
             }
 
-            // Check if at least one supporting document is uploaded
-            if (viewModel.SupportingDocuments == null || viewModel.SupportingDocuments.Count == 0)
+            if ((model.EndDate - model.StartDate).Days > 31 || model.StartDate.Month != model.EndDate.Month)
             {
-                ModelState.AddModelError("", "Please upload minimum one document.");
-                return View(viewModel);
+                ModelState.AddModelError("", "The date range must be within one month and cannot exceed 31 days.");
+                return View(model);
             }
 
-            // Validate file types and size
-            bool invalidFileDetected = false;
-            foreach (var file in viewModel.SupportingDocuments)
+            var currentDate = DateTime.Now;
+            var validMonths = new[] { currentDate.Month, currentDate.AddMonths(-1).Month };
+            if (!validMonths.Contains(model.StartDate.Month) || !validMonths.Contains(model.EndDate.Month))
             {
-                if (file.ContentType != "application/pdf" || file.Length > 20 * 1024 * 1024)
+                ModelState.AddModelError("", "Claims can only be submitted for the current or previous month.");
+                return View(model);
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+
+            bool existingClaim = _context.Claims.Any(c =>
+                c.ApplicationUserId == user.Id &&
+                c.StartDate.Month == model.StartDate.Month &&
+                c.StartDate.Year == model.StartDate.Year &&
+                (c.Status == "Pending" || c.Status == "Approved by Manager" || c.Status == "Approved by Coordinator")
+            );
+
+            if (existingClaim)
+            {
+                ModelState.AddModelError("", "You have already submitted a claim for this month, and it is either pending or approved.");
+                ViewData["ClaimExists"] = existingClaim;
+                return View(model);
+            }
+
+            if (model.SupportingDocuments == null || model.SupportingDocuments.Count == 0)
+            {
+                ModelState.AddModelError("", "At least one supporting document must be attached.");
+                return View(model);
+            }
+
+            foreach (var file in model.SupportingDocuments)
+            {
+                if (!IsValidDocument(file))
                 {
-                    ViewBag.FileError = true;
-                    invalidFileDetected = true;
-                    ModelState.AddModelError("", "Only PDF files supported with the max size of 20 MB.");
-                    return View(viewModel);
+                    ModelState.AddModelError("", "Only PDF files under 15 MB are allowed.");
+                    return View(model);
                 }
             }
 
-            // If no invalid files are detected, proceed with saving the claim
-            if (!invalidFileDetected)
+            var claim = new Claim
             {
-                // Get the logged-in user
-                var loggedInUser = await _accountManager.GetUserAsync(User);
+                HoursWorked = model.HoursWorked,
+                HourlyRate = model.HourlyRate,
+                Notes = model.Notes,
+                DateSubmitted = DateTime.Now,
+                ApplicationUserId = user.Id,
+                TotalAmount = model.HourlyRate * model.HoursWorked,
+                StartDate = model.StartDate,
+                EndDate = model.EndDate
+            };
 
-                // Create a new claim with the form data
-                var newClaim = new Claim
+            _context.Claims.Add(claim);
+            await _context.SaveChangesAsync();
+
+            var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
+            foreach (var file in model.SupportingDocuments)
+            {
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                Directory.CreateDirectory(uploadsFolder);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    HoursWorked = viewModel.HoursWorked,
-                    HourlyRate = viewModel.HourlyRate,
-                    Notes = viewModel.Notes,
-                    DateSubmitted = DateTime.Now,
-                    ApplicationUserId = loggedInUser.Id, // Associate claim with user
-                    TotalAmount = viewModel.HourlyRate * viewModel.HoursWorked
+                    await file.CopyToAsync(fileStream);
+                }
+
+                var document = new Document
+                {
+                    ClaimId = claim.ClaimId,
+                    DocumentName = uniqueFileName,
+                    FilePath = filePath
                 };
 
-                // Add the claim to the database and save changes
-                _databaseContext.Claims.Add(newClaim);
-                await _databaseContext.SaveChangesAsync();
-
-                // Set the directory path to upload supporting documents
-                var uploadDirectory = Path.Combine(_webEnvironment.WebRootPath, "SupportingDocuments");
-
-                // Save each uploaded file to the server
-                foreach (var file in viewModel.SupportingDocuments)
-                {
-                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    var filePath = Path.Combine(uploadDirectory, uniqueFileName);
-
-                    // Ensure the directory exists
-                    Directory.CreateDirectory(uploadDirectory);
-
-                    // Save the file to the server
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-
-                    // Create a record for the document in the database
-                    var documentRecord = new Document
-                    {
-                        ClaimId = newClaim.ClaimId,
-                        DocumentName = uniqueFileName,
-                        FilePath = filePath
-                    };
-
-                    // Add the document record to the databas
-                    _databaseContext.Documents.Add(documentRecord);
-                }
-
-                // Save all changes related to the claim and document
-                await _databaseContext.SaveChangesAsync();
-
-                // Display a success message after submitting the claim
-                TempData["SuccessMessage"] = "Claim submitted successfully!";
-
-                // Redirect to the list of claims for the lecturer
-                return RedirectToAction("Claims", "Lecturer");
+                _context.Documents.Add(document);
             }
 
-            // If any validation fails, return the form view with errors
-            return View(viewModel);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Claim submitted successfully!";
+            return RedirectToAction("Dashboard", "Lecturer");
         }
 
-        // Action to allow users to view the status of their claims
-        public async Task<IActionResult> ViewClaimStatus()
+        public async Task<IActionResult> TrackClaims()
         {
-            // Get the currently logged-in user
-            var currentUser = await _accountManager.GetUserAsync(User);
-
-            // Retrieve the claims submitted by the current user
-            var userClaims = _databaseContext.Claims
+            var currentUser = await _userManager.GetUserAsync(User);
+            var claims = _context.Claims
                 .Where(c => c.ApplicationUserId == currentUser.Id)
                 .ToList();
 
-            // Return the claims to the view for display
-            return View(userClaims);
+            return View(claims);
         }
 
         public bool IsValidDocument(IFormFile file)
-
         {
-
-            // Confirm the file is not null
-
             if (file == null)
-
             {
-
                 return false;
-
             }
 
-            // Check if the file type is PDF and size is 15 MB or less
-
-            return file.ContentType == "application/pdf" && file.Length <= 15 * 1024 * 1024; // 15 MB
-
+            return file.ContentType == "application/pdf" && file.Length <= 15 * 1024 * 1024;
         }
-
     }
 }
