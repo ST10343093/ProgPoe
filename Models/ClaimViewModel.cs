@@ -5,11 +5,11 @@ namespace ProgPoe.Models
     public class ClaimViewModel
     {
         [Required(ErrorMessage = "Hours Worked is required.")]
-        [System.ComponentModel.DataAnnotations.Range(1, 100, ErrorMessage = "Hours Worked must be between 1 and 100.")]
+        [Range(1, 150, ErrorMessage = "Hours Worked must be between 1 and 150.")]
         public decimal HoursWorked { get; set; }
 
         [Required(ErrorMessage = "Hourly Rate is required.")]
-        [System.ComponentModel.DataAnnotations.Range(50, 1000, ErrorMessage = "Hourly Rate must be between 50 and 1000.")]
+        [Range(200, 1000, ErrorMessage = "Hourly Rate must be between 200 and 1000.")]
         public decimal HourlyRate { get; set; }
 
         [MaxLength(500, ErrorMessage = "Notes can't exceed 500 characters.")]
@@ -17,5 +17,12 @@ namespace ProgPoe.Models
 
         [Display(Name = "Supporting Documents")]
         public List<IFormFile> SupportingDocuments { get; set; }
+
+        [Required(ErrorMessage = "Start Date is required.")]
+        public DateTime StartDate { get; set; }
+
+        [Required(ErrorMessage = "End Date is required.")]
+        public DateTime EndDate { get; set; }
     }
 }
+

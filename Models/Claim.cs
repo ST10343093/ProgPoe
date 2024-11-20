@@ -8,11 +8,11 @@ namespace ProgPoe.Models
         public int ClaimId { get; set; }
 
         [Required(ErrorMessage = "Hours Worked is required.")]
-        [System.ComponentModel.DataAnnotations.Range(1, 100, ErrorMessage = "Hours Worked must be between 1 and 100.")]
+        [Range(1, 150, ErrorMessage = "Hours Worked must be between 1 and 150.")]
         public decimal HoursWorked { get; set; }
 
         [Required(ErrorMessage = "Hourly Rate is required.")]
-        [System.ComponentModel.DataAnnotations.Range(50, 1000, ErrorMessage = "Hourly Rate must be between 50 and 1000.")]
+        [Range(200, 1000, ErrorMessage = "Hourly Rate must be between 200 and 1000.")]
         public decimal HourlyRate { get; set; }
 
         [Required]
@@ -22,12 +22,12 @@ namespace ProgPoe.Models
         public string Notes { get; set; }
 
         [Required]
-        [CustomValidation(typeof(Claim), nameof(ValidateSubmissionDate))]
         public DateTime DateSubmitted { get; set; }
 
         public string Status { get; set; } = "Pending";
 
         public bool IsApprovedByCoordinator { get; set; } = false;
+
         public bool IsApprovedByManager { get; set; } = false;
 
         [ForeignKey("ApplicationUser")]
@@ -37,20 +37,14 @@ namespace ProgPoe.Models
 
         public virtual ICollection<Document> Documents { get; set; }
 
-        public static ValidationResult ValidateSubmissionDate(DateTime dateSubmitted, ValidationContext context)
-        {
-            var currentDate = DateTime.Now;
-            if (dateSubmitted > currentDate)
-            {
-                return new ValidationResult("Date Submitted cannot be in the future.");
-            }
+        [Required(ErrorMessage = "Start Date is required.")]
+        public DateTime StartDate { get; set; }
 
-            if (dateSubmitted.Month != currentDate.Month && dateSubmitted.Month != currentDate.AddMonths(-1).Month)
-            {
-                return new ValidationResult("Date Submitted can only be from the current month or previous month.");
-            }
+        [Required(ErrorMessage = "End Date is required.")]
+        public DateTime EndDate { get; set; }
 
-            return ValidationResult.Success;
-        }
+        [Required]
+        public string PaymentStatus { get; set; } = "Pending";
     }
 }
+
