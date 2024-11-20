@@ -121,7 +121,7 @@ namespace ProgPoe.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Claim submitted successfully!";
-            return RedirectToAction("Dashboard", "Lecturer");
+            return RedirectToAction("Claims", "Lecturer");
         }
 
         public async Task<IActionResult> TrackClaims()

@@ -19,7 +19,7 @@ namespace ProgPoe.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Dashboard(DateTime? startDate, DateTime? endDate)
+        public async Task<IActionResult> Claims(DateTime? startDate, DateTime? endDate)
         {
             var user = await _userManager.GetUserAsync(User);
             var userId = await _userManager.GetUserIdAsync(user);
