@@ -10,48 +10,48 @@
 <style>
     /* Updated CSS for the Login Page */
     body {
-        font-family: 'Arial', sans-serif;
-        background-color: #1b1b1b; /* Slightly lighter black for the page background */
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f5f7; /* Light gray background */
+        color: #333;
         margin: 0;
         padding: 0;
     }
 
     .container {
-        max-width: 900px; /* Fixed max-width for a larger form */
-        width: 90%; /* Flexible width to fill the screen */
+        max-width: 600px;
+        width: 100%;
         margin: 50px auto;
-        padding: 30px; /* Increased padding for more space inside the container */
-        background-color: #2a2a2a; /* Darker container background */
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4); /* Adjusted shadow for better depth */
-        border-radius: 15px; /* Slightly more rounded corners */
-        color: #f4f4f9;
+        padding: 40px;
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
     }
 
     h2 {
-        font-size: 2rem; /* Increased font size for better readability */
-        color: #ffcc00; /* Yellow color */
+        font-size: 2rem;
+        color: #4a90e2; /* Light blue color */
         text-align: center;
         margin-bottom: 25px;
     }
 
     p {
-        color: #aaaaaa;
+        color: #666;
         text-align: center;
         margin-bottom: 15px;
     }
 
     .form-floating label {
-        color: #aaaaaa;
-        font-size: 0.95rem;
+        color: #666;
+        font-size: 1rem;
     }
 
     .form-control {
-        background-color: #3b3b3b;
-        color: #f4f4f9;
-        border: 1px solid #555;
-        border-radius: 8px; /* Slightly more rounded input fields */
-        padding: 12px; /* Increased padding for better input field size */
-        font-size: 1rem; /* Larger font size for better readability */
+        background-color: #f8f9fa;
+        color: #495057;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 1rem;
     }
 
         .form-control::placeholder {
@@ -59,30 +59,32 @@
         }
 
     .btn-primary {
-        background-color: #ffcc00; /* Yellow button */
+        background-color: #4a90e2; /* Light blue button */
         border: none;
-        border-radius: 8px; /* Rounded button corners */
+        border-radius: 8px;
         padding: 12px;
         width: 100%;
-        font-size: 1.1rem; /* Larger font size for the button text */
-        color: #000;
+        font-size: 1.1rem;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
     }
 
         .btn-primary:hover {
-            background-color: #e6b800; /* Darker yellow on hover */
+            background-color: #357abd; /* Darker blue on hover */
         }
 
     .checkbox {
         margin-top: 15px;
-        font-size: 1rem; /* Increased font size */
+        font-size: 1rem;
     }
 
         .checkbox label {
-            color: #f4f4f9;
+            color: #495057;
         }
 
     .text-links a {
-        color: #ffcc00; /* Yellow link color */
+        color: #4a90e2; /* Light blue link color */
         text-decoration: none;
     }
 
@@ -91,17 +93,17 @@
         }
 
     .external-login button {
-        background-color: #ffcc00; /* Yellow button for external login */
-        color: #000;
+        background-color: #4a90e2;
+        color: #fff;
         border: none;
-        padding: 12px 25px; /* Increased button padding for better size */
+        padding: 12px 25px;
         border-radius: 8px;
         margin: 8px;
-        font-size: 1rem; /* Larger font size */
+        font-size: 1rem;
     }
 
         .external-login button:hover {
-            background-color: #e6b800;
+            background-color: #357abd;
         }
 
     .text-center {
@@ -109,7 +111,7 @@
     }
 
     hr {
-        border-top: 1px solid #444;
+        border-top: 1px solid #ced4da;
         margin: 25px 0;
     }
 
@@ -117,8 +119,6 @@
         display: none;
     }
 </style>
-
-
 
 <div class="container">
     <section>
@@ -172,7 +172,7 @@
             <div>
                 <p>
                     No external login services configured.
-                    <a href="https://go.microsoft.com/fwlink/?LinkID=532715">Learn more here</a>.
+                    <a href="https://go.microsoft.com/fwlink/?LinkID=532715">Learn more here</a> .
                 </p>
             </div>
         }

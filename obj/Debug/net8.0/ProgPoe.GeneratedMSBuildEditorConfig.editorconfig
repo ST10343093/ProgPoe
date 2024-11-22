@@ -186,6 +186,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/lab_services_student/source/repos/ProgPoe/Views/AcademicManager/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNhZGVtaWNNYW5hZ2VyXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/lab_services_student/source/repos/ProgPoe/Views/AppRoles/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwUm9sZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -226,16 +230,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJcR2VuZXJhdGVSZXBvcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lab_services_student/source/repos/ProgPoe/Views/HR/ProcessPayment.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJcUHJvY2Vzc1BheW1lbnQuY3NodG1s
+[C:/Users/lab_services_student/source/repos/ProgPoe/Views/HR/ProcessPayments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJcUHJvY2Vzc1BheW1lbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lab_services_student/source/repos/ProgPoe/Views/Lecturer/Claims.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVjdHVyZXJcQ2xhaW1zLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/lab_services_student/source/repos/ProgPoe/Views/Manager/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lab_services_student/source/repos/ProgPoe/Views/ManageUsers/Delete.cshtml]

@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,18 @@ namespace ProgPoe
             builder.Services.AddDefaultIdentity<IdentityUser>().AddDefaultTokenProviders()
                            .AddRoles<IdentityRole>()
                            .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // Add FluentValidation
+
+            builder.Services.AddControllersWithViews()
+
+                .AddFluentValidation(config =>
+
+                {
+
+                    config.RegisterValidatorsFromAssemblyContaining<Program>(); // Automatically register all validators in the project
+
+                });
 
 
             var app = builder.Build();

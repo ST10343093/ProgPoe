@@ -136,7 +136,7 @@ namespace ProgPoe.Areas.Identity.Pages.Account
                         }
                         else if (roles.Contains("Manager"))
                         {
-                            return LocalRedirect(Url.Content("~/Manager/Index"));
+                            return LocalRedirect(Url.Content("~/AcademicManager/Index"));
                         }
 
                         else if (roles.Contains("Default"))

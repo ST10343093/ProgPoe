@@ -1,0 +1,162 @@
+﻿@model ProgPoe.Models.ProcessPaymentsViewModel
+
+<div class="container-payments">
+    <h1>Process Payments</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Claim ID</th>
+                <th>Lecturer Name</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var claim in Model.Claims)
+            {
+                <tr>
+                    <td>@claim.ClaimId</td>
+                    <td>@claim.ApplicationUser.Firstname @claim.ApplicationUser.Lastname</td>
+                    <td>R @claim.TotalAmount.ToString("N2")</td>
+                    <td>@claim.Status</td>
+                    <td>
+                        <form asp-action="ProcessPayment" method="post">
+                            <input type="hidden" name="claimId" value="@claim.ClaimId" />
+                            <button type="submit" class="btn-process btn-process-success">Process Payment</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Claims.Any())
+    {
+        <p class="no-payments">No pending payments to review at this time.</p>
+    }
+
+    <div class="summary">
+        <h2>Payment Summary</h2>
+        <p>Total Claims Processed: <span>@Model.TotalClaims</span></p>
+        <p>Total Amount to be Paid: <span>R @Model.TotalAmountToPay.ToString("N2")</span></p>
+        <p>Pending Payments: <span>@Model.PendingPayments</span></p>
+    </div>
+</div>
+
+<style>
+    /* General Styles */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f5f7;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container-payments {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 36px;
+        color: #4a90e2;
+    }
+
+    /* Table Styles */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .table thead {
+        background-color: #4a90e2;
+        color: #fff;
+    }
+
+    .table th, .table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f1f7fd;
+    }
+
+    /* No Payments Message */
+    .no-payments {
+        text-align: center;
+        color: #888;
+        margin-top: 20px;
+    }
+
+    /* Summary Section */
+    .summary {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .summary h2 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .summary p {
+        font-size: 16px;
+        margin: 5px 0;
+    }
+
+    .summary span {
+        font-weight: bold;
+        color: #4a90e2;
+    }
+
+    /* Button Styles */
+    .btn-process {
+        background-color: #4a90e2;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn-process-success {
+        background-color: #1abc9c;
+    }
+
+    .btn-process:hover {
+        background-color: #357abd;
+        transform: translateY(-2px);
+    }
+
+    .btn-process-success:hover {
+        background-color: #16a085;
+    }
+
+   
+        .btn-process {
+            font-size: 12px;
+            padding: 8px 10px;
+        }
+    }
+</style>

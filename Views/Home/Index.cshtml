@@ -3,79 +3,76 @@
 }
 
 <style>
-    /* CSS for the Home Page */
+    /* General Styles */
     body {
-        font-family: 'Arial', sans-serif;
-        background-color: #1b1b1b;
-        color: #f4f4f9;
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f5f7;
+        color: #333;
         margin: 0;
         padding: 0;
+    }
+
+    .container-home {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         text-align: center;
     }
 
-    .container {
-        max-width: 900px;
-        width: 90%;
-        margin: 50px auto;
-        padding: 20px;
-        background-color: #2a2a2a;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        border-radius: 15px;
-    }
+        .container-home h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #4a90e2;
+            margin-bottom: 15px;
+        }
 
-    h1.title {
-        font-size: 3.5rem;
-        font-weight: bold;
-        color: #ffcc00;
-        margin-bottom: 20px;
-    }
+        .container-home p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
 
-    p.subtitle {
-        font-size: 1.2rem;
-        color: #cccccc;
-        margin-bottom: 40px;
-    }
-
+    /* Buttons Section */
     .buttons {
-        margin-top: 30px;
+        margin-top: 20px;
     }
 
         .buttons a {
             display: inline-block;
-            padding: 10px 30px;
+            padding: 12px 25px;
             margin: 10px;
             font-size: 1rem;
+            font-weight: bold;
             text-decoration: none;
-            color: #1b1b1b;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
+            border-radius: 6px;
+            transition: all 0.3s ease;
         }
 
             .buttons a.login {
-                background-color: #ffcc00;
+                background-color: #4a90e2;
+                color: #fff;
             }
 
                 .buttons a.login:hover {
-                    background-color: #e6b800;
+                    background-color: #357abd;
                 }
 
             .buttons a.register {
-                background-color: #007bff;
-                color: #f4f4f9;
+                background-color: #ffcc00;
+                color: #333;
             }
 
                 .buttons a.register:hover {
-                    background-color: #0056b3;
-                }
-                
-                .navbar{
-                display: none;
+                    background-color: #e6b800;
                 }
 </style>
 
-<div class="container">
-    <h1 class="title">Welcome to My Claim App</h1>
-    <p class="subtitle">Manage your monthly claims efficiently. Login to track your claims or register to create an account.</p>
+<div class="container-home">
+    <h1>Welcome to My Claim App</h1>
+    <p>Track, manage, and streamline your claims effortlessly. Log in to access your account or register to join us today!</p>
     <div class="buttons">
         <a href="/identity/Account/Login" class="login">LOGIN</a>
         <a href="/identity/Account/Register" class="register">REGISTER</a>

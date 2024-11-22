@@ -1,0 +1,162 @@
+﻿@model IEnumerable<ProgPoe.Models.Claim>
+
+@{
+    ViewBag.Title = "Pending Claims for Academic Manager";
+}
+
+<style>
+    body {
+        background-color: #2a2a2a; /* Light black background for the entire page */
+        color: #f4f4f9; /* Light text color for better contrast */
+        font-family: 'Arial', sans-serif; /* Consistent font family */
+    }
+
+    .container-claims {
+        max-width: 900px; /* Max width for the container */
+        margin: 50px auto; /* Center the container */
+        padding: 30px; /* Padding inside the container */
+        background-color: #3b3b3b; /* Darker background for the container */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    }
+
+    h2 {
+        font-size: 2rem; /* Heading font size */
+        color: #ffcc00; /* Highlight color for the heading */
+        text-align: center; /* Center align heading */
+        margin-bottom: 20px; /* Space below the heading */
+    }
+
+    .table {
+        width: 100%; /* Full width for the table */
+        margin-top: 20px; /* Space above the table */
+        border-collapse: collapse; /* Collapse borders */
+    }
+
+        .table th, .table td {
+            padding: 15px; /* Padding for table cells */
+            text-align: left; /* Left align text */
+            border-bottom: 1px solid #555; /* Border for rows */
+            color: #f4f4f9; /* Light text color for table */
+        }
+
+        .table th {
+            background-color: #4b4b4b; /* Darker background for table headers */
+            color: #ffcc00; /* Highlight color for table headers */
+        }
+
+        .table tr:hover {
+            background-color: #444; /* Darker background on row hover */
+        }
+
+    .document-link {
+        color: #ffcc00; /* Highlight color for document links */
+        text-decoration: none; /* Remove underline */
+        transition: color 0.3s; /* Smooth transition for hover */
+    }
+
+        .document-link:hover {
+            color: #e6b800; /* Darker shade on hover */
+        }
+
+    .btn-approve, .btn-reject {
+        background-color: #007bff; /* Bootstrap primary color for buttons */
+        color: #fff; /* White text color */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 5px 10px; /* Padding for buttons */
+        cursor: pointer; /* Pointer cursor for button */
+        transition: background-color 0.3s; /* Smooth transition for hover */
+    }
+
+        .btn-approve:hover {
+            background-color: #0056b3; /* Darker shade on hover for approve */
+        }
+
+    .btn-reject {
+        background-color: #dc3545; /* Bootstrap danger color for reject */
+    }
+
+        .btn-reject:hover {
+            background-color: #c82333; /* Darker shade on hover for reject */
+        }
+
+    .action-buttons {
+        display: flex; /* Flexbox for action buttons layout */
+        gap: 10px; /* Space between buttons */
+    }
+</style>
+
+<div class="container-claims">
+    <h2>Pending Claims for Academic Manager</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Claim ID</th>
+                <th>Submitted By</th>
+                <th>Date Submitted</th>
+                <th>Hours Worked</th>
+                <th>Hourly Rate</th>
+                <th>Total Amount</th>
+                <th>Supporting Documents</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var claim in Model)
+            {
+                <tr>
+                    <td>@claim.ClaimId</td>
+                    <td>@claim.ApplicationUser?.Email</td>
+                    <td>@claim.DateSubmitted.ToString("yyyy-MM-dd")</td>
+                    <td>@claim.HoursWorked</td>
+                    <td>R @claim.HourlyRate</td>
+                    <td>R @claim.TotalAmount</td>
+                    <td>
+                        @if (claim.Documents != null && claim.Documents.Any())
+                        {
+                            <ul style="list-style-type: none; padding: 0;">
+                                @foreach (var doc in claim.Documents)
+                                {
+                                    <li>
+                                        <i class="fa-solid fa-download"></i>
+                                        <a href="@Url.Content("~/uploads/" + doc.DocumentName)" target="_blank" class="document-link">View Document</a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span>No Documents</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <!-- Approve form -->
+                            <form asp-action="Approve" method="post">
+                                <input type="hidden" name="claimId" value="@claim.ClaimId" />
+                                <input type="submit" value="Approve" class="btn-approve" />
+                            </form>
+
+                            <!-- Reject form -->
+                            <form asp-action="Reject" method="post" style="display:inline;">
+                                <input type="hidden" name="claimId" value="@claim.ClaimId" />
+                                <input type="submit" value="Reject" class="btn-reject" />
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Any())
+    {
+        <p>No pending claims to review at this time.</p>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -3,18 +3,16 @@
 @using System.IO
 
 @{
-
     ViewData["Title"] = "Generate Report";
-
 }
 
 <div class="container-dashboard">
-    <h2>@ViewData["Title"]</h2>
+    <h2 class="page-title">@ViewData["Title"]</h2>
 
     <form method="post" asp-action="GenerateReport" class="report-form">
         <div class="form-group">
             <label for="reportName">Report Name</label>
-            <input type="text" class="form-control" id="reportName" name="reportName" required />
+            <input type="text" class="form-control" id="reportName" name="reportName" placeholder="Enter report name" required />
         </div>
 
         <div class="form-group">
@@ -35,18 +33,19 @@
             </select>
         </div>
 
-        <button type="submit" class="btn-submit"><i class="fa fa-plus-circle" aria-hidden="true"></i> Generate Report</button>
+        <button type="submit" class="btn-submit">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i> Generate Report
+        </button>
     </form>
 
-    <hr />
+    <hr class="divider" />
 
-    <h3>Existing Reports</h3>
+    <h3 class="section-title">Existing Reports</h3>
 
     @if (Model.ExistingReports != null && Model.ExistingReports.Any())
-
     {
         <table class="table table-hover">
-            <thead class="table-header">
+            <thead>
                 <tr>
                     <th>Report Name</th>
                     <th>Report Type</th>
@@ -56,9 +55,7 @@
                 </tr>
             </thead>
             <tbody>
-
                 @foreach (var report in Model.ExistingReports)
-
                 {
                     <tr>
                         <td>@report.ReportName</td>
@@ -71,34 +68,137 @@
                             </a>
                         </td>
                     </tr>
-
                 }
             </tbody>
         </table>
-
     }
-
     else
-
     {
-        <p>No reports found for the selected date range.</p>
-
+        <p class="no-reports">No reports found for the selected date range.</p>
     }
 </div>
 
 @section Scripts {
     <script type="text/javascript">
-
         @if (ViewBag.NoClaimsForDateRange != null && (bool)ViewBag.NoClaimsForDateRange)
-
         {
             <text>
-
                 alert("No claims found for the selected date range.");
             </text>
-
         }
     </script>
-
 }
 
+<style>
+    /* General Styles */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f5f7;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container-dashboard {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-title {
+        text-align: center;
+        color: #4a90e2;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    /* Form Styles */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+    .btn-submit {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+    }
+
+        .btn-submit i {
+            margin-right: 5px;
+        }
+
+        .btn-submit:hover {
+            background-color: #357abd;
+        }
+
+    /* Table Styles */
+    .table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f7fd;
+    }
+
+    .link-view-report {
+        color: #4a90e2;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .link-view-report i {
+            margin-right: 5px;
+        }
+
+        .link-view-report:hover {
+            color: #357abd;
+        }
+
+    .no-reports {
+        color: #888;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* Divider */
+    .divider {
+        margin: 20px 0;
+        border: 0;
+        height: 1px;
+        background: #ddd;
+    }
+</style>

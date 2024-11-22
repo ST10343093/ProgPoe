@@ -5,6 +5,26 @@
       "PackagePath": "staticwebassets\\ProgPoe.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\lab_services_student\\source\\repos\\ProgPoe\\wwwroot\\SupportingDocuments\\48f41ea1-f7ad-413a-90ab-bd778b96451e_lorem facts.pdf",
+      "PackagePath": "staticwebassets\\SupportingDocuments\\48f41ea1-f7ad-413a-90ab-bd778b96451e_lorem facts.pdf"
+    },
+    {
+      "Id": "C:\\Users\\lab_services_student\\source\\repos\\ProgPoe\\wwwroot\\SupportingDocuments\\6a068596-9548-41ed-8d34-cb83fd500ac0_lorem facts.pdf",
+      "PackagePath": "staticwebassets\\SupportingDocuments\\6a068596-9548-41ed-8d34-cb83fd500ac0_lorem facts.pdf"
+    },
+    {
+      "Id": "C:\\Users\\lab_services_student\\source\\repos\\ProgPoe\\wwwroot\\SupportingDocuments\\7d0f724a-9b30-4c69-a499-3fc7a7a3023d_lorem facts.pdf",
+      "PackagePath": "staticwebassets\\SupportingDocuments\\7d0f724a-9b30-4c69-a499-3fc7a7a3023d_lorem facts.pdf"
+    },
+    {
+      "Id": "C:\\Users\\lab_services_student\\source\\repos\\ProgPoe\\wwwroot\\SupportingDocuments\\af3fc1a2-9126-49e3-8a68-74afbda7d097_lorem facts.pdf",
+      "PackagePath": "staticwebassets\\SupportingDocuments\\af3fc1a2-9126-49e3-8a68-74afbda7d097_lorem facts.pdf"
+    },
+    {
+      "Id": "C:\\Users\\lab_services_student\\source\\repos\\ProgPoe\\wwwroot\\SupportingDocuments\\b2abc39f-f713-416c-a1f5-ad858fb41920_lorem facts.pdf",
+      "PackagePath": "staticwebassets\\SupportingDocuments\\b2abc39f-f713-416c-a1f5-ad858fb41920_lorem facts.pdf"
+    },
+    {
       "Id": "C:\\Users\\lab_services_student\\source\\repos\\ProgPoe\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -243,6 +263,14 @@
     {
       "Id": "C:\\Users\\lab_services_student\\source\\repos\\ProgPoe\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\lab_services_student\\source\\repos\\ProgPoe\\wwwroot\\reports\\Claim report 1_20241121210355.pdf",
+      "PackagePath": "staticwebassets\\reports\\Claim report 1_20241121210355.pdf"
+    },
+    {
+      "Id": "C:\\Users\\lab_services_student\\source\\repos\\ProgPoe\\wwwroot\\reports\\Claim report 1_20241121210701.pdf",
+      "PackagePath": "staticwebassets\\reports\\Claim report 1_20241121210701.pdf"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ProgPoe.Microsoft.AspNetCore.StaticWebAssets.props",

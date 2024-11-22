@@ -3,148 +3,149 @@
 @model RegisterModel
 
 @{
-
     ViewData["Title"] = "Register";
-
 }
- 
+
 <div class="register-container">
-<div class="register-box">
-<section class="register-section">
-<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-<h1>Register</h1>
-<h2>Enter your details to create a New Account</h2>
-<hr />
-<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
- 
-                <div class="form-floating mb-3">
-<input asp-for="Input.Firstname" class="form-control" autocomplete="Firstname" aria-required="true" placeholder="First Name" />
-<label asp-for="Input.Firstname">First Name</label>
-<span asp-validation-for="Input.Firstname" class="text-danger"></span>
-</div>
- 
-                <div class="form-floating mb-3">
-<input asp-for="Input.Lastname" class="form-control" autocomplete="Lastname" aria-required="true" placeholder="Last Name" />
-<label asp-for="Input.Lastname">Last Name</label>
-<span asp-validation-for="Input.Lastname" class="text-danger"></span>
-</div>
- 
-                <div class="form-floating mb-3">
-<input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-<label asp-for="Input.Email">Email</label>
-<span asp-validation-for="Input.Email" class="text-danger"></span>
-</div>
- 
-                <div class="form-floating mb-3">
-<input asp-for="Input.PhoneNumber" class="form-control" autocomplete="tel" aria-required="true" placeholder="Phone Number" />
-<label asp-for="Input.PhoneNumber">Phone Number</label>
-<span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-</div>
- 
- 
-                <div class="form-floating mb-3">
-<input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-<label asp-for="Input.Password">Password</label>
-<span asp-validation-for="Input.Password" class="text-danger"></span>
-</div>
- 
-                <div class="form-floating mb-3">
-<input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirm password" />
-<label asp-for="Input.ConfirmPassword">Confirm Password</label>
-<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-</div>
- 
-                <button id="registerSubmit" type="submit" class="btn btn-register">Register</button>
-</form>
-</section>
-</div>
-</div>
- 
-@section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <div class="register-box">
+        <section class="register-section">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <h1>Register</h1>
+                <h2>Enter your details to create a New Account</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Firstname" class="form-control" autocomplete="Firstname" aria-required="true" placeholder="First Name" />
+                    <label asp-for="Input.Firstname">First Name</label>
+                    <span asp-validation-for="Input.Firstname" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Lastname" class="form-control" autocomplete="Lastname" aria-required="true" placeholder="Last Name" />
+                    <label asp-for="Input.Lastname">Last Name</label>
+                    <span asp-validation-for="Input.Lastname" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.Email">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="tel" aria-required="true" placeholder="Phone Number" />
+                    <label asp-for="Input.PhoneNumber">Phone Number</label>
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.Password">Password</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirm password" />
+                    <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <button id="registerSubmit" type="submit" class="btn btn-register">Register</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
- 
+
 <style>
     /* CSS for the Register Page */
     body {
-        font-family: 'Arial', sans-serif;
-        background-color: #1b1b1b;
-        color: #f4f4f9;
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f5f7;
+        color: #333;
         margin: 0;
         padding: 0;
     }
 
-    .container {
-        max-width: 900px;
-        width: 90%;
-        margin: 50px auto;
+    .register-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
         padding: 20px;
-        background-color: #2a2a2a;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        border-radius: 15px;
+    }
+
+    .register-box {
+        max-width: 600px;
+        width: 100%;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
-        font-size: 2.5rem;
-        color: #ffcc00;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #4a90e2;
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     h2 {
-        font-size: 1.5rem;
-        color: #ffcc00;
+        font-size: 1.2rem;
+        font-weight: normal;
+        color: #666;
         text-align: center;
         margin-bottom: 20px;
     }
 
-    .form-floating label {
-        color: #f4f4f9;
+    .form-floating {
+        margin-bottom: 20px;
     }
 
     .form-control, .form-select {
-        background-color: #3b3b3b;
-        border: 1px solid #555;
-        color: #f4f4f9;
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        color: #495057;
         border-radius: 8px;
-        margin-bottom: 15px;
         padding: 10px;
+        font-size: 1rem;
     }
 
-        .form-control::placeholder {
-            color: #ccc;
+        .form-control:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
         }
 
-    .form-select {
-        padding: 10px;
+    .form-floating label {
+        color: #666;
     }
 
-    .btn-primary {
-        background-color: #ffcc00;
-        color: #1b1b1b;
+    .btn-register {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+        background-color: #4a90e2;
+        color: #fff;
         border: none;
         border-radius: 8px;
-        padding: 10px;
-        width: 100%;
         font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
         transition: background-color 0.3s ease;
     }
 
-        .btn-primary:hover {
-            background-color: #e6b800;
+        .btn-register:hover {
+            background-color: #357abd;
         }
 
     .text-danger {
-        font-size: 0.9rem;
-        color: #ff6666;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .navbar {
-        display: none;
+        font-size: 0.85rem;
+        color: #e3342f;
     }
 </style>

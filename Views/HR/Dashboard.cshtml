@@ -1,66 +1,177 @@
 ﻿@model ProgPoe.Models.DashboardViewModel
- 
+
 <div class="container-dashboard">
-<h1 style="color:#fff;">HR Dashboard</h1>
- 
+    <h1>HR Dashboard</h1>
+
     <!-- Claims Processed Section -->
-<div class="dashboard-section">
-<div class="dashboard-card">
-<h2>Claims Processed</h2>
-<div class="card-content">
-<div class="card-item">
-<h3>@Model.TotalClaims</h3>
-<p>Total Claims</p>
-</div>
-<div class="card-item">
-<h3>@Model.PendingClaims</h3>
-<p>Pending Review</p>
-</div>
-<div class="card-item">
-<h3>@Model.ApprovedClaims</h3>
-<p>Approved</p>
-</div>
-</div>
-</div>
-</div>
- 
+    <div class="dashboard-section">
+        <div class="dashboard-card">
+            <h2>Claims Processed</h2>
+            <div class="card-content">
+                <div class="card-item">
+                    <h3>@Model.TotalClaims</h3>
+                    <p>Total Claims</p>
+                </div>
+                <div class="card-item">
+                    <h3>@Model.PendingClaims</h3>
+                    <p>Pending Review</p>
+                </div>
+                <div class="card-item">
+                    <h3>@Model.ApprovedClaims</h3>
+                    <p>Approved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Payments Overview Section -->
-<div class="dashboard-section">
-<div class="dashboard-card">
-<h2>Payments Overview</h2>
-<div class="card-content">
-<div class="card-item">
-<h3>R @Model.TotalPayments</h3>
-<p>Total Payments</p>
-</div>
-<div class="card-item">
-<h3>R @Model.PendingPayments</h3>
-<p>Pending Payments</p>
-</div>
-<div class="card-item">
-<h3>R @Model.CompletedPayments</h3>
-<p>Completed Payments</p>
-</div>
-</div>
-</div>
-</div>
- 
+    <div class="dashboard-section">
+        <div class="dashboard-card">
+            <h2>Payments Overview</h2>
+            <div class="card-content">
+                <div class="card-item">
+                    <h3>R @Model.TotalPayments</h3>
+                    <p>Total Payments</p>
+                </div>
+                <div class="card-item">
+                    <h3>R @Model.PendingPayments</h3>
+                    <p>Pending Payments</p>
+                </div>
+                <div class="card-item">
+                    <h3>R @Model.CompletedPayments</h3>
+                    <p>Completed Payments</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Reports Section -->
-<div class="dashboard-section">
-<div class="dashboard-card">
-<h2>Reports</h2>
-<p>Generate detailed reports on claims and payments.</p>
-<a href="/Hr/GenerateReport" class="btn-reports"><i class="fa fa-bar-chart" aria-hidden="true"></i> View Reports</a>
+    <div class="dashboard-section">
+        <div class="dashboard-card">
+            <h2>Reports</h2>
+            <p>Generate detailed reports on claims and payments.</p>
+            <a href="/Hr/GenerateReport" class="btn-reports">
+                <i class="fa fa-bar-chart" aria-hidden="true"></i> View Reports
+            </a>
+        </div>
+    </div>
+
+    <!-- Manage Users Section -->
+    <div class="dashboard-section">
+        <div class="dashboard-card">
+            <h2>Manage Users</h2>
+            <p>Manage the list of users and maintain access levels.</p>
+            <a href="/ManageUsers/Index" class="btn-reports">
+                <i class="fa fa-users" aria-hidden="true"></i> View Users
+            </a>
+        </div>
+    </div>
 </div>
-</div>
- 
-    <!-- Manaage Users Section -->
-<div class="dashboard-section">
-<div class="dashboard-card">
-<h2>Manage Users</h2>
-<p>Manage List of users and maintian access levels</p>
-<a href="/ManageUsers/Index" class="btn-reports"><i class="fa fa-users" aria-hidden="true"></i> View Users</a>
-</div>
-</div>
-</div>
- 
+
+<style>
+    /* General Styles */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f5f7;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container-dashboard {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 36px;
+        color: #4a90e2;
+    }
+
+    /* Section Styles */
+    .dashboard-section {
+        margin-bottom: 30px;
+    }
+
+    /* Card Styles */
+    .dashboard-card {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .card-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    /* Card Item Styles */
+    .card-item {
+        background-color: #eaf4fc;
+        border-radius: 8px;
+        text-align: center;
+        padding: 20px;
+        color: #4a90e2;
+        flex: 1;
+        min-width: 150px;
+        transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .card-item:hover {
+        background-color: #d4e8f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-item h3 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .card-item p {
+        font-size: 14px;
+        color: #666;
+    }
+
+    /* Button Styles */
+    .btn-reports {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #4a90e2;
+        border-radius: 8px;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn-reports i {
+        margin-right: 8px;
+    }
+
+    .btn-reports:hover {
+        background-color: #357abd;
+        transform: translateY(-3px);
+    }
+
+   
+    }
+</style>

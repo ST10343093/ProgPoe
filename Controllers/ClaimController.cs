@@ -124,7 +124,7 @@ namespace ProgPoe.Controllers
             return RedirectToAction("Claims", "Lecturer");
         }
 
-        public async Task<IActionResult> TrackClaims()
+        public async Task<IActionResult> ViewClaimStatus()
         {
             var currentUser = await _userManager.GetUserAsync(User);
             var claims = _context.Claims
